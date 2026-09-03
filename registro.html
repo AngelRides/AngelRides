@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Registro Conductor - AngelRides</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #040d1cb8; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: #04027da0; width: 100%; max-width: 600px; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: #1e88e5; text-align: center; margin-bottom: 10px; font-weight: 700; }
+        p.subtitle { text-align: center; color: #ffffff; font-size: 14px; margin-bottom: 25px; }
+        .section-title { font-size: 16px; color: #ffffff; font-weight: 600; margin-top: 20px; margin-bottom: 10px; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 13px; color: #ffffff; margin-bottom: 5px; font-weight: 500; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; outline: none; transition: border 0.3s; }
+        input:focus, select:focus { border-color: #1e88e5; }
+        .btn-submit { width: 100%; background: #1e88e5; color: white; border: none; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 20px; transition: background 0.3s; }
+        .btn-submit:hover { background: #1565c0; }
+        .btn-submit:disabled { background: #90caf9; cursor: not-allowed; }
+        .alert { padding: 12px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; display: none; }
+        .alert-error { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+        .alert-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>AngelRides Conductor</h2>
+    <p class="subtitle">Pre-regístrate aquí para agilizar tu ingreso a la plataforma</p>
+
+    <div id="alertBox" class="alert"></div>
+
+    <form id="preRegistroForm">
+        <!-- DATOS PERSONALES -->
+        <div class="section-title">1. Datos Personales</div>
+        
+        <div class="form-group">
+            <label for="nombre">Nombre Completo *</label>
+            <input type="text" id="nombre" placeholder="Ej: Juan Pérez" required>
+        </div>
+
+        <div class="form-group">
+            <label for="correo">Correo Electrónico *</label>
+            <input type="email" id="correo" placeholder="ejemplo@correo.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pass">Contraseña (Mínimo 6 caracteres) *</label>
+            <input type="password" id="pass" placeholder="******" required minlength="6">
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Teléfono Movil *</label>
+            <input type="tel" id="telefono" placeholder="Ej: 04141234567" required>
+        </div>
+
+        <div class="form-group">
+            <label for="cedula">Cédula de Identidad *</label>
+            <input type="text" id="cedula" placeholder="Ej: 12345678" required>
+        </div>
+
+        <!-- UBICACIÓN -->
+        <div class="section-title">2. Ubicación</div>
+
+        <div class="form-group">
+            <label for="pais">País *</label>
+            <select id="pais" required>
+                <option value="Venezuela">Venezuela</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="estado">Estado *</label>
+            <select id="estado" required>
+                <option value="">Seleccione Estado...</option>
+                <option value="Gran Caracas">Gran Caracas</option>
+                <option value="Miranda (Exterior)">Miranda (Exterior)</option>
+                <option value="Anzoátegui">Anzoátegui</option>
+                <option value="Aragua">Aragua</option>
+                <option value="Carabobo">Carabobo</option>
+                <option value="Lara">Lara</option>
+                <option value="Zulia">Zulia</option>
+                <!-- Puedes agregar el resto de estados -->
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="municipio">Municipio *</label>
+            <select id="municipio" required disabled>
+                <option value="">Seleccione Municipio...</option>
+            </select>
+        </div>
+
+        <!-- CONTACTO DE EMERGENCIA -->
+        <div class="section-title">3. Contacto de Emergencia</div>
+
+        <div class="form-group">
+            <label for="emNombre">Nombre Completo *</label>
+            <input type="text" id="emNombre" placeholder="Ej: María Pérez" required>
+        </div>
+
+        <div class="form-group">
+            <label for="emRelacion">Parentesco / Relación *</label>
+            <input type="text" id="emRelacion" placeholder="Ej: Esposa, Madre" required>
+        </div>
+
+        <div class="form-group">
+            <label for="emTelf">Teléfono de Emergencia *</label>
+            <input type="tel" id="emTelf" placeholder="Ej: 04129876543" required>
+        </div>
+
+        <!-- DATOS DEL VEHÍCULO -->
+        <div class="section-title">4. Datos del Vehículo</div>
+
+        <div class="form-group">
+            <label for="tipoVehiculo">Tipo de Vehículo *</label>
+            <select id="tipoVehiculo" required>
+                <option value="moto">Moto</option>
+                <option value="carro">Carro</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="placa">Placa *</label>
+            <input type="text" id="placa" placeholder="Ej: AB1C23" required style="text-transform: uppercase;">
+        </div>
+
+        <div class="form-group">
+            <label for="marca">Marca *</label>
+            <input type="text" id="marca" placeholder="Ej: Bera, Toyota" required>
+        </div>
+
+        <div class="form-group">
+            <label for="modelo">Modelo *</label>
+            <input type="text" id="modelo" placeholder="Ej: SBR, Yaris" required>
+        </div>
+
+        <div class="form-group">
+            <label for="anio">Año *</label>
+            <input type="number" id="anio" placeholder="Ej: 2023" required>
+        </div>
+
+        <div class="form-group">
+            <label for="color">Color *</label>
+            <input type="text" id="color" placeholder="Ej: Negro, Azul" required>
+        </div>
+
+        <div class="form-group">
+            <label for="codigoReferido">Código de Invitación / Referido (Opcional)</label>
+            <input type="text" id="codigoReferido" placeholder="Ej: ANGEL-ABC123" style="text-transform: uppercase;">
+        </div>
+
+        <button type="submit" id="btnSubmit" class="btn-submit">COMPLETAR PRE-REGISTRO</button>
+    </form>
+</div>
+
+<!-- SDK DE FIREBASE (MÚDULOS OFICIALES V9+) -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+    // ⚠️ REEMPLAZA ESTOS DATOS CON LAS CREDENCIALES DE TU PROYECTO FIREBASE
+    const firebaseConfig = {
+  apiKey: "AIzaSyCd_pi8NQBKfIx24AAt_kJ0WXVwdg0wRSI",
+  authDomain: "angelrides-oficial.firebaseapp.com",
+  databaseURL: "https://angelrides-oficial-default-rtdb.firebaseio.com",
+  projectId: "angelrides-oficial",
+  storageBucket: "angelrides-oficial.firebasestorage.app",
+  messagingSenderId: "555176632558",
+  appId: "1:555176632558:web:acf5a1313fd0aa0f8313ff",
+  measurementId: "G-G8YGKBD1YJ"
+};
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Mapa de municipios en cascada
+    const mapaUbicaciones = {
+        "Gran Caracas": ["Libertador (Centro/Oeste)", "Chacao", "Sucre (Petare/El Marqués)", "Baruta (Las Mercedes/Prados)", "El Hatillo"],
+        "Miranda (Exterior)": ["Acevedo", "Andrés Bello", "Brión", "Buroz", "Carrizal", "Cristóbal Rojas", "Guaicaipuro", "Independencia", "Lander", "Los Salias", "Páez", "Paz Castillo", "Pedro Gual", "Plaza", "Simón Bolívar", "Urdaneta", "Zamora"],
+        "Anzoátegui": ["Anaco", "Aragua", "Diego Bautista Urbaneja", "Guanta", "Juan Antonio Sotillo", "Simón Bolívar"],
+        "Aragua": ["Girardot", "José Félix Ribas", "Santiago Mariño", "Sucre", "Tovar"],
+        "Carabobo": ["Guacara", "Naguanagua", "Puerto Cabello", "San Diego", "Valencia"],
+        "Lara": ["Iribarren", "Palavecino", "Torres"],
+        "Zulia": ["Cabimas", "Lagunillas", "Maracaibo", "San Francisco"]
+    };
+
+    const estadoSelect = document.getElementById("estado");
+    const municipioSelect = document.getElementById("municipio");
+    const alertBox = document.getElementById("alertBox");
+    const form = document.getElementById("preRegistroForm");
+    const btnSubmit = document.getElementById("btnSubmit");
+
+    // Evento para cargar municipios
+    estadoSelect.addEventListener("change", () => {
+        const estadoSel = estadoSelect.value;
+        municipioSelect.innerHTML = '<option value="">Seleccione Municipio...</option>';
+        
+        if (estadoSel && mapaUbicaciones[estadoSel]) {
+            mapaUbicaciones[estadoSel].forEach(muni => {
+                const opt = document.createElement("option");
+                opt.value = muni;
+                opt.textContent = muni;
+                municipioSelect.appendChild(opt);
+            });
+            municipioSelect.disabled = false;
+        } else {
+            municipioSelect.disabled = true;
+        }
+    });
+
+    // Envío del Formulario
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        mostrarAlerta("", false);
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = "Procesando...";
+
+        const correo = document.getElementById("correo").value.trim().toLowerCase();
+        const pass = document.getElementById("pass").value.trim();
+        const nombre = document.getElementById("nombre").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
+
+        try {
+            // 1. Crear Usuario en Auth
+            const userCredential = await createUserWithEmailAndPassword(auth, correo, pass);
+            const uid = userCredential.user.uid;
+
+            // 2. Fecha de Fin de Bono (+14 Días)
+            const fechaFinBono = new Date();
+            fechaFinBono.setDate(fechaFinBono.getDate() + 14);
+
+            // 3. Crear Estructura de Datos para Firestore
+            const datosConductor = {
+                uid: uid,
+                nombre: nombre,
+                correo: correo,
+                telefono: telefono,
+                cedula: document.getElementById("cedula").value.trim(),
+                pais: document.getElementById("pais").value,
+                estado_ubicacion: estadoSelect.value,
+                municipio: municipioSelect.value,
+                tipoVehiculo: document.getElementById("tipoVehiculo").value,
+                placa: document.getElementById("placa").value.trim().toUpperCase(),
+                marca: document.getElementById("marca").value.trim(),
+                modelo: document.getElementById("modelo").value.trim(),
+                anio: document.getElementById("anio").value.trim(),
+                colorVehiculo: document.getElementById("color").value.trim(),
+                codigo_invitacion_usado: document.getElementById("codigoReferido").value.trim().toUpperCase(),
+                emergencyContact: {
+                    name: document.getElementById("emNombre").value.trim(),
+                    relationship: document.getElementById("emRelacion").value.trim(),
+                    phone: document.getElementById("emTelf").value.trim()
+                },
+                estatus: "pre_registrado", // Marcador clave
+                verificado: false,
+                online: false,
+                estado: "libre",
+                saldo: 0.0,
+                puntos_rango: 0,
+                puntos_canje: 0,
+                rango: "bronce",
+                viajesCompletados: 0,
+                sosActivo: false,
+                fecha_fin_bono: fechaFinBono,
+                createdAt: serverTimestamp(),
+                origen_registro: "web"
+            };
+
+            // 4. Guardar en Colección Principal 'conductores'
+            await setDoc(doc(db, "conductores", uid), datosConductor);
+
+            // 5. Guardar en 'registros_incompletos' para seguimiento comercial
+            await setDoc(doc(db, "registros_incompletos", correo), {
+                nombre: nombre,
+                correo: correo,
+                telefono: telefono,
+                rol: "conductor",
+                estado: "Fase 1 Web Completada - Pendiente Fotos en App",
+                fechaIntento: serverTimestamp()
+            });
+
+            mostrarAlerta("¡Pre-registro exitoso! 🎉 Ahora descarga la app AngelRides Conductor, inicia sesión con tu correo/clave y tómale foto a tus documentos para empezar a trabajar.", true);
+            form.reset();
+            btnSubmit.textContent = "¡REGISTRO EXITOSO!";
+
+        } catch (error) {
+            btnSubmit.disabled = false;
+            btnSubmit.textContent = "COMPLETAR PRE-REGISTRO";
+            let msjError = "Error al procesar el pre-registro.";
+            if (error.code === "auth/email-already-in-use") {
+                msjError = "Este correo ya está registrado en la plataforma.";
+            } else if (error.code === "auth/weak-password") {
+                msjError = "La contraseña debe tener al menos 6 caracteres.";
+            } else {
+                msjError += " " + error.message;
+            }
+            mostrarAlerta(msjError, false);
+        }
+    });
+
+    function mostrarAlerta(mensaje, esExito) {
+        if (!mensaje) {
+            alertBox.style.display = "none";
+            return;
+        }
+        alertBox.className = esExito ? "alert alert-success" : "alert alert-error";
+        alertBox.textContent = mensaje;
+        alertBox.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
